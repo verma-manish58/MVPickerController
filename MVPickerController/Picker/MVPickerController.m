@@ -23,43 +23,21 @@ static MVPickerController *sharedInstance;
 #define PICKER_HEIGHT       260 //216 + 44 (tool bar height)
 #define ANIMATION_DURATION  0.5
 
-
-
-
-
-@interface MVPickerController ()
-
-@end
-
 @implementation MVPickerController
 
 @synthesize arrPickerItems;
 @synthesize target;
 @synthesize tag;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hidePicker) name:UIKeyboardWillShowNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hidePicker)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
     //uncomment the code below to show picker in popover view
     //    [self setContentSizeForViewInPopover:CGSizeMake(300, 216)];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark- Shared Picker View
@@ -78,7 +56,7 @@ static MVPickerController *sharedInstance;
     //not being used here as we are showing picker on top of tab view rather than showing it on a view controller
     UIViewController *superViewController = (UIViewController*)view;
     
-   [superViewController.view endEditing:YES];
+    [superViewController.view endEditing:YES];
     
     self.arrPickerItems =   [NSArray arrayWithArray:pickerItems];
     self.target         =   delegate;
@@ -101,11 +79,9 @@ static MVPickerController *sharedInstance;
     
     
     [UIView animateWithDuration:ANIMATION_DURATION animations:^{
-        
-        
         if ([self.strDeviceOrientation compare:@"portrait" options:NSCaseInsensitiveSearch] == NSOrderedSame)
         {
-//            [self.view setFrame:CGRectMake(0, SCREEN_HEIGHT - PICKER_HEIGHT, SCREEN_WIDTH, PICKER_HEIGHT)];
+            //            [self.view setFrame:CGRectMake(0, SCREEN_HEIGHT - PICKER_HEIGHT, SCREEN_WIDTH, PICKER_HEIGHT)];
             [self.view setFrame:CGRectMake(0, (IPAD ?superViewController.view.frame.size.height : SCREEN_HEIGHT) - PICKER_HEIGHT, IPAD ? superViewController.view.frame.size.width : SCREEN_WIDTH, PICKER_HEIGHT)];
             [self.toolBar setFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
         }
@@ -115,19 +91,14 @@ static MVPickerController *sharedInstance;
             [self.toolBar setFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
         }
         
-         self.isPickerVisible = YES;
+        self.isPickerVisible = YES;
         
-//        NSLog(@"SCREEN_HEIGHT: %f", SCREEN_HEIGHT);
-//        NSLog(@"SCREEN_WIDTH: %f", SCREEN_WIDTH);
+        //        NSLog(@"SCREEN_HEIGHT: %f", SCREEN_HEIGHT);
+        //        NSLog(@"SCREEN_WIDTH: %f", SCREEN_WIDTH);
         
-
+        
         [superViewController.view addSubview:self.view];
-        NSLog(@"Picker Frame:-============ %@", NSStringFromCGRect(self.view.frame));
-        
-    } completion:^(BOOL finished) {
-        
     }];
-    
     [self.picker setTag:pickerTag];
     [self.picker reloadAllComponents];
 }
@@ -136,7 +107,6 @@ static MVPickerController *sharedInstance;
 - (void)fillPickerWithItems:(NSArray*)items
 {
     self.arrPickerItems     =   [NSArray arrayWithArray:items];
-    
     [self.picker reloadAllComponents];
 }
 
@@ -204,13 +174,11 @@ static MVPickerController *sharedInstance;
  */
 
 #pragma mark- UIPickerViewDelegate Methods
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return [NSString stringWithFormat:@"%@",[self.arrPickerItems objectAtIndex:row]];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     //    if (self.target && [self.target respondsToSelector:@selector(selectedItem:)])
     //    {
     //        [self.target selectedItem:[pickerView.delegate pickerView:pickerView titleForRow:row forComponent:component]];

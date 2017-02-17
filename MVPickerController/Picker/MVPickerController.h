@@ -18,9 +18,6 @@
 #define APPDELEGATE         ((AppDelegate*)[UIApplication sharedApplication].delegate)
 
 @interface MVPickerController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
-{
-    
-}
 
 @property (assign, nonatomic) BOOL isPickerVisible;
 
@@ -35,7 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 @property (strong, nonatomic) NSString *strDeviceOrientation;
-
 
 - (void)fillPickerWithItems:(NSArray*)items;
 
